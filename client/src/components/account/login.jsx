@@ -46,13 +46,24 @@ const Text = styled(Typography)`
     color: #878787;
 `;
 
+const signupInitialValues = {
+    name: '',
+    username: '',
+    password: '',
+}
+
 const Login = () => {
     const imageURL = '/PlacementBuddyLogo.png';
 
     const [account, toggleAccount] = useState('login');
+    const [signup, setSignup] = useState(signupInitialValues);
 
     const toggleSignup = () => {
         account === 'signup' ? toggleAccount('login') : toggleAccount('signup');
+    }
+
+    const onInputChange = (event) => {
+        setSignup({...signup, [event.target.name]: event.target.value});
     }
     return (
         <Component>
@@ -69,9 +80,9 @@ const Login = () => {
                         </Wrapper>
                     :
                         <Wrapper>
-                            <TextField label="Enter Name" variant="standard"/>
-                            <TextField label="Enter Username" variant="standard"/>
-                            <TextField label="Enter Password" variant="standard"/>
+                            <TextField label="Enter Name" onChange={(event) => onInputChange(event)} name='name' variant="standard"/>
+                            <TextField label="Enter Username" onChange={(event) => onInputChange(event)} name= 'username' variant="standard"/>
+                            <TextField label="Enter Password" onChange={(event) => onInputChange(event)} name= 'password' variant="standard"/>
                             <SignUpButton>SignUp</SignUpButton>
                             <Text style={{textAlign: 'center'}}>OR</Text>
                             <LoginButton onClick={() => toggleSignup()} variant="contained">Already have an Account</LoginButton>
