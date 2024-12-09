@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import {Box, TextField, Button, styled, Typography} from '@mui/material';
 import { API } from '../../service/api';
 import { DataContext } from '../../context/DataProvider';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Component = styled(Box)`
     width: 400px;
@@ -68,7 +68,7 @@ const loginInitialValues = {
     password: ''
 }
 
-const Login = () => {
+const Login = ({isUserAuthenticated}) => {
     const imageURL = '/PlacementBuddyLogo.png';
 
     const [account, toggleAccount] = useState('login');
@@ -112,6 +112,7 @@ const Login = () => {
             sessionStorage.setItem('refreshToken', `Bearer ${response.data.refreshToken}`);
 
             setAccount({username: response.data.username, name: response.data.name });
+            isUserAuthenticated(true);
             navigate('/');
         }else {
             setError('Something went wrong, Please try again later');
